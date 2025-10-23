@@ -1,0 +1,4 @@
+Board state:
+{board_state}
+
+What action should be taken?

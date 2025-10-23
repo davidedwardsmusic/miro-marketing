@@ -1,0 +1,13 @@
+Extract the marketing plan from the following sticky note data:
+
+Product Section:
+{product}
+
+Segments Section:
+{segments}
+
+Channels Section:
+{channels}
+
+Please structure this information into a complete marketing plan.
+
