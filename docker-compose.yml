@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  miro-marketing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+    image: miro-marketing:latest
+    container_name: miro-marketing-app
+    env_file:
+      - .env
+    restart: unless-stopped
+    # Optional: Persist SQLite database between container restarts
+    volumes:
+      - ./tag_mappings.db:/app/tag_mappings.db

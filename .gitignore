@@ -23,6 +23,10 @@ __pycache__/
 .vscode/
 *.iml
 
+# Secrets and files with hardcoded credentials
+secrets-values.yaml
+Dockerfile
+
 # OS files
 .DS_Store
 Thumbs.db

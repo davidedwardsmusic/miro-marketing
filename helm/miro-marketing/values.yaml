@@ -1,0 +1,43 @@
+# Default values for miro-marketing
+replicaCount: 1
+
+image:
+  repository: miromarketingacr.azurecr.io/miro-marketing
+  pullPolicy: Always
+  tag: "latest"
+
+namespace:
+  name: miro-marketing
+  create: true
+
+config:
+  miroBoardId: "uXjVJ6rCeVk="
+  openaiModel: "gpt-4"
+  intervalSeconds: "5"
+  pythonUnbuffered: "1"
+  debugItinerary: "1"
+  dbPath: "/data/tag_mappings.db"
+
+secrets:
+  miroApiToken: ""
+  openaiApiKey: ""
+
+persistence:
+  enabled: true
+  storageClassName: "managed-csi"
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+initContainer:
+  enabled: true
+  image: "busybox"
+  command: ['sh', '-c', 'chmod 777 /data && ls -la /data']
+

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "miro-marketing.fullname" . }}-config
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- include "miro-marketing.labels" . | nindent 4 }}
+data:
+  MIRO_BOARD_ID: {{ .Values.config.miroBoardId | quote }}
+  OPENAI_MODEL: {{ .Values.config.openaiModel | quote }}
+  INTERVAL_SECONDS: {{ .Values.config.intervalSeconds | quote }}
+  PYTHONUNBUFFERED: {{ .Values.config.pythonUnbuffered | quote }}
+  DEBUG_ITINERARY: {{ .Values.config.debugItinerary | quote }}
+  DB_PATH: {{ .Values.config.dbPath | quote }}

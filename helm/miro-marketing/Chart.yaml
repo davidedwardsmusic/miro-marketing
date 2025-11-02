@@ -1,0 +1,6 @@
+apiVersion: v2
+name: miro-marketing
+description: A Helm chart for the Miro Marketing app
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

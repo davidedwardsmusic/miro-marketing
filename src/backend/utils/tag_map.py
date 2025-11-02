@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from pathlib import Path
 
@@ -8,7 +9,7 @@ class TagMap:
     Data is persisted in a SQLite database.
     """
     _instance = None
-    _db_path = Path(__file__).parent.parent.parent.parent / "tag_mappings.db"
+    _db_path = Path(os.getenv("DB_PATH", str(Path(__file__).parent.parent.parent.parent / "tag_mappings.db")))
 
     def __new__(cls):
         if cls._instance is None:

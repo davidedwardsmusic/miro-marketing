@@ -1,0 +1,40 @@
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment files (will be loaded via env_file)
+.env
+.env.local
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Tests
+test/
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Database (we'll mount it via volumes instead)
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db

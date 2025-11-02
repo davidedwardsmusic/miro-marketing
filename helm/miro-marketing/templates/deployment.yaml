@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "miro-marketing.fullname" . }}
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- include "miro-marketing.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "miro-marketing.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "miro-marketing.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.initContainer.enabled }}
+      initContainers:
+        - name: fix-permissions
+          image: {{ .Values.initContainer.image }}
+          command: {{ .Values.initContainer.command | toJson }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "miro-marketing.fullname" . }}-config
+            - secretRef:
+                name: {{ include "miro-marketing.fullname" . }}-secrets
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "miro-marketing.fullname" . }}-data

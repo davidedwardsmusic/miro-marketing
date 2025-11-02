@@ -1,0 +1,24 @@
+# Use Python 3.11 slim image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV DEBUG_ITINERARY=1
+# Note: Set MIRO_API_TOKEN, OPENAI_API_KEY, MIRO_BOARD_ID, and OPENAI_MODEL via docker run -e or docker-compose
+ENV OPENAI_MODEL=gpt-4
+
+# Run the application
+CMD ["python", "-m", "src.backend.main"]
+
